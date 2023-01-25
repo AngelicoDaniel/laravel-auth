@@ -1,15 +1,16 @@
 @extends('layouts.dashboard')
 @section('content')
     <div class="text-center">
-        <h1>Crea un post</h1>
+        <h1>Modifica il post {{$post->title}}</h1>
     </div>
 
-    <form action="{{route('admin.posts.store')}}" method="POST">
+    <form action="{{route('admin.posts.update', $post->id)}}" method="POST">
         @csrf
+        @method('PUT')
 
         <div class="my-4">
             <label class="form-label" for="">Titolo</label>
-            <input class="form-control" type="text" name="title">
+            <input value="{{$post->title}}" class="form-control" type="text" name="title">
             @error('title')
                 <div class="alert alert-danger">
                     {{ $message }}
@@ -19,7 +20,7 @@
 
         <div class="my-4">
             <label class="form-label" for="">Body</label>
-            <textarea class="form-control" type="text" name="body"></textarea>
+            <textarea class="form-control" type="text" name="body" >{{$post->body}}</textarea>
             @error('body')
             <div class="alert alert-danger">
                 {{ $message }}
@@ -27,6 +28,6 @@
         @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Crea</button>
+        <button type="submit" class="btn btn-primary">Modifica</button>
     </form>
 @endsection

@@ -43,6 +43,14 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
+        //validate
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
+
         $newPost = new Post();
         $newPost->fill($data);
         $newPost->save();
@@ -70,7 +78,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -82,7 +92,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $singolo_post = Post::findOrFail($id);
+
+        $singolo_post->update($data);
+
+        return redirect()->route('admin.posts.show', $singolo_post->id);
     }
 
     /**
@@ -93,6 +108,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $singolo_post = Post::findOrFail($id);
+        $singolo_post->delete();
+
+        return redirect()->route('admin.posts.index');
     }
 }
