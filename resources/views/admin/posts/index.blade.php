@@ -1,6 +1,8 @@
 @extends('layouts.dashboard')
 @section('content')
 
+    <a href="{{route('admin.posts.create')}}">Crea nuovo post</a>
+
     <table class="table">
         <thead>
           <tr>
@@ -20,7 +22,14 @@
                         </a>
                     </td>
                     <td>{{$post->body}}</td>
-                    <td>icone</td>
+                    <td>
+                        <a href="{{route('admin.posts.edit', $post->id)}}">
+                            Edit
+                        </a>
+                        {{-- <a href="{{route('admin.posts.delete')}}">
+                            Delete
+                        </a> --}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
