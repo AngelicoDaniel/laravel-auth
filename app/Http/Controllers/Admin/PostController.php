@@ -108,8 +108,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $singolo_post = Post::findOrFail($id);
-        $singolo_post->delete();
+        $singoloPost = Post::findOrFail($id);
+        $singoloPost->delete();
 
         return redirect()->route('admin.posts.index');
     }
